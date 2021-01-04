@@ -9,7 +9,11 @@ app.config.update(
 
 @app.route('/', methods=['GET'])
 def home():
-    return '<br/>'.join(scrape.associated_press())
+    links = scrape.associated_press()
+    output = ""
+    for link in links:
+        output += "<a href=\"{link}\">{link}</a><br/><br/>".format(link=link)
+    return output
 
 if __name__ == '__main__':
     app.run()
