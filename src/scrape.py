@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0", "Accept-Encoding":"gzip, deflate", "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
 
-def associated_press():
+def associated_press(stories=5):
     url = 'https://apnews.com/'
     articlePattern = re.compile('/article')
     r = requests.get(url, headers=headers)
@@ -17,5 +17,5 @@ def associated_press():
         link = str(section.get('href'))
         if articlePattern.match(link):
             links.add(link)
-    output = [re.sub('^','https://apnews.com', link) for link in randomsample(links,10)]
+    output = [re.sub('^','https://apnews.com', link) for link in randomsample(links,stories)]
     return output
